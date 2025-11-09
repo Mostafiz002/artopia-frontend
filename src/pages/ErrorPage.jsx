@@ -4,19 +4,18 @@ import { Link } from "react-router";
 
 const ErrorPage = () => {
   return (
-    <section>
-        <title>404 Page</title>
-      <div className="flex flex-col justify-center items-center min-h-screen gap-10 px-6 py-12">
-        <img src={errorImg} alt="" />
-        <div className="flex flex-col  md:justify-center items-start md:items-center gap-4">
-          <p className="text-5xl font-semibold text-[#000000db]">
+    <section className="bg-base-100 text-base-content min-h-screen flex items-center justify-center px-6 py-12 transition-colors duration-300">
+      <title>404 Page</title>
+      <div className="flex flex-col justify-center items-center gap-10">
+        <img src={errorImg} alt="404 Error" className="max-w-sm w-full" />
+        <div className="flex flex-col items-center gap-4 text-center">
+          <p className="text-5xl font-semibold text-primary">
             Oops, page not found!
           </p>
-          <p>The page you are looking for is not available.</p>
-          <Link
-            to="/"
-            className=" py-3 px-5 rounded-sm cursor-pointer font-medium text-white bg-linear-to-r from-[#632EE3] to-[#9F62F2]"
-          >
+          <p className="text-base-content/80">
+            The page you are looking for is not available.
+          </p>
+          <Link to="/" className="btn-primary-one">
             Go Home!
           </Link>
         </div>
