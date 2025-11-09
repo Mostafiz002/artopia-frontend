@@ -24,7 +24,7 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `px-3 py-1 rounded-full transition-colors duration-300 ${
+            `px-3 py-1 text-sm rounded-full transition-colors duration-300 ${
               isActive
                 ? "bg-base-content/10 text-primary "
                 : "text-base-content hover:bg-base-content/10 hover:text-primary"
@@ -38,7 +38,7 @@ const Navbar = () => {
         <NavLink
           to="/explore"
           className={({ isActive }) =>
-            `px-3 py-1 rounded-full transition-colors duration-300 ${
+            `px-3 py-1 text-sm  rounded-full transition-colors duration-300 ${
               isActive
                 ? "bg-base-content/10 text-primary "
                 : "text-base-content hover:bg-base-content/10 hover:text-primary"
@@ -68,7 +68,7 @@ const Navbar = () => {
             <div className=" navbar-start">
               <Link
                 to="/"
-                className="text-2xl font-extrabold text-primary tracking-wide"
+                className="text-2xl playfair font-extrabold text-primary tracking-wide"
               >
                 Artopia
               </Link>

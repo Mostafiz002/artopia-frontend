@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="footer sm:footer-horizontal text-base-content py-10 max-w-[1432px] mx-auto px-4">
         {/* Left Section */}
         <aside>
-          <h2 className="text-2xl font-bold text-primary">Artopia</h2>
+          <h2 className="text-2xl playfair font-bold text-primary">Artopia</h2>
           <p className="max-w-xs text-base-content/70 mt-2">
             Discover, collect, and showcase stunning digital artworks from
             creators around the world.
@@ -24,7 +24,7 @@ const Footer = () => {
 
         {/* Quick Links */}
         <div>
-          <h6 className="footer-title">Quick Links</h6>
+          <h6 className="footer-title playfair">Quick Links</h6>
           <Link to="/" className="link link-hover">
             Home
           </Link>
@@ -44,7 +44,7 @@ const Footer = () => {
 
         {/* Services */}
         <div>
-          <h6 className="footer-title">Services</h6>
+          <h6 className="footer-title playfair">Services</h6>
           <a className="link link-hover">Art Promotion</a>
           <a className="link link-hover">Custom Artwork</a>
           <a className="link link-hover">Artist Support</a>
@@ -53,7 +53,7 @@ const Footer = () => {
 
         {/* Social Links */}
         <div>
-          <h6 className="footer-title">Contact & Social</h6>
+          <h6 className="footer-title playfair">Contact & Social</h6>
 
           {/* Contact Info */}
           <div className="space-y-2 text-sm text-base-content/70">
