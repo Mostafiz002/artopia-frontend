@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* @theme {
+  --color-primary: #000000;
+  --color-secondary: #ffd700; /* Gold */
+/* --color-accent: #f5deb3; /* Soft gold */
+/* --color-neutral: #1e1e1e;
+  --color-base-100: #ffffff;
+  --color-base-content: #000000; */
+*/
+
+  /* [data-theme="dark"] {
+    --color-primary: #ffffff;
+    --color-secondary: #d4af37; /* Deep gold */
+    /* --color-accent: #f1c40f; /* Bright gold accent */
+    /* --color-neutral: #111111;
+    --color-base-100: #000000;
+    --color-base-content: #ffffff; */ */
+  /* } */
+/* } */ */ */
+
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+  font-family: "Playfair Display", serif;
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+}
