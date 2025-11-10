@@ -4,10 +4,12 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import { MdErrorOutline } from "react-icons/md";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { googleSignIn, setUser } = useAuth();
+  const [error, setError] = useState("");
+  const { googleSignIn, setUser, createUser, updateUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -17,12 +19,55 @@ const Register = () => {
     const photoURL = e.target.photo.value;
     const password = e.target.password.value;
     console.log(displayName, email, photoURL, password);
+
+    //error validation
+    const regExp = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!regExp.test(password)) {
+      setError([
+        "Password must have an Uppercase letter.",
+        " Password must have a Lowercase letter.",
+        " Password length must be at least 6 characters",
+      ]);
+      return;
+    }
+
+    //create user
+    createUser(email, password)
+      .then((res) => {
+        const user = res.user;
+        updateUser({ displayName, photoURL })
+          .then(() => {
+            setUser({ ...user, displayName, photoURL });
+            navigate("/");
+            window.scrollTo(0, 0);
+            toast.success("Account created successfully");
+          })
+          .catch((err) => {
+            console.log(err);
+            setUser(user);
+          });
+      })
+      .catch((err) => {
+        let message = "";
+        switch (err.code) {
+          case "auth/email-already-in-use":
+            message = "This email is already registered.";
+            break;
+          case "auth/invalid-email":
+            message = "Please enter a valid email address.";
+            break;
+          default:
+            message = "An error occurred. Please try again.";
+        }
+        toast.error(message);
+      });
   };
 
   const handleGoogleSignin = () => {
     googleSignIn()
       .then((res) => {
         navigate("/");
+        window.scrollTo(0, 0);
         setUser(res.user);
         toast.success("Logged in successfully with Google");
       })
@@ -102,6 +147,14 @@ const Register = () => {
           >
             Register
           </button>
+          {error && (
+            <div className="mt-5">
+              <div className="alert alert-error shadow-lg py-3">
+                <MdErrorOutline size={30} />
+                <span className="text-sm sm:text-base">{error}</span>
+              </div>
+            </div>
+          )}
           <div className="divider my-6">or</div>
 
           {/* Google Sign In */}
