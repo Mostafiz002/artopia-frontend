@@ -78,6 +78,7 @@ const Register = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-10 bg-base-100 text-base-content transition-all duration-300">
+      <title>Register - Artopia</title>
       <div className="w-full max-w-md bg-base-200/50 border border-base-300 rounded-2xl p-8 shadow-lg backdrop-blur-sm">
         <h2 className="text-3xl playfair font-semibold text-center mb-6">
           Create Account
