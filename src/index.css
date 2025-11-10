@@ -53,3 +53,34 @@ body {
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+
+/* 45° Shine Sweep Animation */
+.shine {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  transform: skewX(-40deg);
+  transition: all 0.5s ease;
+}
+
+.group:hover .shine {
+  animation: shineMove 0.8s forwards;
+}
+
+@keyframes shineMove {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}

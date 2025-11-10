@@ -33,7 +33,7 @@ const Banner = () => {
         </motion.div>
 
         <motion.h1
-          className="playfair text-3xl md:text-[56px] font-medium w-full lg:w-[90%] leading-tight"
+          className="playfair text-4xl md:text-[56px] font-medium w-full lg:w-[90%] leading-tight"
           variants={textVariant}
           custom={2}
         >

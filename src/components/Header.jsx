@@ -189,18 +189,30 @@ const Navbar = () => {
             <li className="mb-4 text-2xl font-bold text-primary">Artopia</li>
             {navLinks}
             <div className="mt-6 flex flex-col gap-3">
-              <Link
-                to="/login"
-                className="btn btn-outline border-secondary text-secondary hover:bg-secondary hover:text-base-100"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="btn bg-secondary text-base-100 hover:bg-secondary/80"
-              >
-                Register
-              </Link>
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className="btn bg-secondary text-base-100 hover:bg-secondary/80"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  {" "}
+                  <Link
+                    to="/login"
+                    className="btn btn-outline border-secondary text-secondary hover:bg-secondary hover:text-base-100"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="btn bg-secondary text-base-100 hover:bg-secondary/80"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
           </ul>
         </div>
