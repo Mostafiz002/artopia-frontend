@@ -28,27 +28,29 @@ const Footer = () => {
           <Link to="/" className="link link-hover">
             Home
           </Link>
-          <Link to="/explore" className="link link-hover">
+          <Link to="/explore-artworks" className="link link-hover">
             Explore Artworks
           </Link>
-          <Link to="/add" className="link link-hover">
-            Add Artwork
+          <Link to="/login" className="link link-hover">
+            Login
           </Link>
-          <Link to="/gallery" className="link link-hover">
-            My Gallery
-          </Link>
-          <Link to="/favorites" className="link link-hover">
-            My Favorites
+          <Link to="/register" className="link link-hover">
+            Register
           </Link>
         </div>
 
         {/* Services */}
         <div>
           <h6 className="footer-title playfair">Services</h6>
-          <a className="link link-hover">Art Promotion</a>
-          <a className="link link-hover">Custom Artwork</a>
-          <a className="link link-hover">Artist Support</a>
-          <a className="link link-hover">Marketplace</a>
+          <Link to="/add-artworks" className="link link-hover">
+            Add Artwork
+          </Link>
+          <Link to="/my-gallery" className="link link-hover">
+            My Gallery
+          </Link>
+          <Link to="/my-favorites" className="link link-hover">
+            My Favorites
+          </Link>
         </div>
 
         {/* Social Links */}

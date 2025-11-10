@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const ArtCard = ({ data }) => {
   return (
-    <div className="relative bg-base-100 shadow-lg dark:shadow-[#111111b9] rounded-2xl overflow-hidden transition-transform hover:-translate-y-2 duration-300  group">
+    <div className="relative transition border border-accent/20 bg-base-100 shadow-sm hover:shadow-lg hover:border-accent/40 duration-500 rounded-2xl overflow-hidden hover:-translate-y-2  group">
       {/* Image container */}
       <div className="relative h-64 w-full overflow-hidden">
         <img

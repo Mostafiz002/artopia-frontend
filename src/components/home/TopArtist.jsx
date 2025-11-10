@@ -35,7 +35,7 @@ const TopArtist = () => {
         <h2 className="title-main playfair">
           Top Artists of the Week
         </h2>
-        <p className="paragraph mt-3 mb-10  w-full md:w-[45%]">
+        <p className="paragraph mt-3 mb-10  w-full md:w-150">
           Experience the brilliance of this week’s most inspiring creators and
           their unique artistic visions.
         </p>

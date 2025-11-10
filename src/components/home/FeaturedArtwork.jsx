@@ -15,7 +15,7 @@ const FeaturedArtwork = () => {
   return (
     <div>
       <h2 className="title-main playfair">Featured Artworks</h2>
-      <p className="paragraph mt-3 mb-8 w-full md:w-[40%]">
+      <p className="paragraph mt-3 mb-8 w-full md:w-150">
         Join us for an exhilarating live auction experience where art meets
         excitement.
       </p>
