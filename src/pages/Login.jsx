@@ -8,20 +8,62 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const { googleSignIn, setUser } = useAuth();
+  const { googleSignIn, setUser, signIn } = useAuth();
   const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    signIn(email, password)
+      .then(() => {
+        navigate(`${location.state ? location.state : "/"}`);
+        window.scrollTo(0, 0);
+        toast.success("Logged in successfully");
+      })
+      .catch((err) => {
+        let message = "";
+        switch (err.code) {
+          case "auth/invalid-email":
+            message = "Please enter a valid email address.";
+            break;
+          case "auth/user-disabled":
+            message = "This account has been disabled. Contact support.";
+            break;
+          case "auth/user-not-found":
+            message = "No account found with this email.";
+            break;
+          case "auth/invalid-credential":
+            message =
+              "Invalid credentials. Please check your email and password.";
+            break;
+          case "auth/wrong-password":
+            message =
+              "Invalid credentials. Please check your email and password.";
+            break;
+          case "auth/too-many-requests":
+            message =
+              "Too many unsuccessful login attempts. Please try again later.";
+            break;
+          default:
+            message = "An unexpected error occurred. Please try again.";
+        }
+        toast.error(message);
+      });
+  };
 
   const handleGoogleSignin = () => {
     googleSignIn()
       .then((res) => {
-        navigate("/");
+        navigate(`${location.state ? location.state : "/"}`);
         window.scrollTo(0, 0);
         setUser(res.user);
         toast.success("Logged in successfully with Google");
       })
-      .catch(() => {
+      .catch((err) => {
         toast.error("Google sign-in failed. Please try again.");
+        console.log(err);
       });
   };
   return (
@@ -32,7 +74,7 @@ const Login = () => {
           Login
         </h2>
 
-        <form className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-5">
           {/* Email */}
           <div>
             <label className="block text-sm mb-2 text-info">Email</label>
@@ -73,14 +115,6 @@ const Login = () => {
           >
             Login
           </button>
-          {error && (
-            <div className="mt-5">
-              <div className="alert alert-error shadow-lg py-3">
-                <MdErrorOutline size={30} />
-                <span className="text-sm sm:text-base">{error}</span>
-              </div>
-            </div>
-          )}
           <div className="divider my-6">or</div>
 
           {/* Google Sign In */}
