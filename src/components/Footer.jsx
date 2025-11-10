@@ -62,10 +62,10 @@ const Footer = () => {
               <FaMapMarkerAlt className="text-secondary" /> Dhaka, Bangladesh
             </p>
             <p className="flex items-center gap-2">
-              <FaPhoneAlt className="text-secondary" /> +880 1789-123456
+              <FaPhoneAlt className="text-secondary" /> +880 1752-080666
             </p>
             <p className="flex items-center gap-2">
-              <FaEnvelope className="text-secondary" /> mostafiz.dev@gmail.com
+              <FaEnvelope className="text-secondary" /> mo.mahin4@gmail.com
             </p>
           </div>
 

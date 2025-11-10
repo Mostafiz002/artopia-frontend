@@ -3,10 +3,13 @@ import { FaBars } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import { WiDaySunny } from "react-icons/wi";
 import { PiMoonThin } from "react-icons/pi";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+  const { user } = useAuth();
+  console.log(user);
 
   useEffect(() => {
     const html = document.querySelector("html");
@@ -96,12 +99,18 @@ const Navbar = () => {
 
                 <PiMoonThin className="swap-off mt-0.5 ml-1" size={26} />
               </label>
-              <button className="hidden md:flex btn btn-sm btn-outline border-secondary text-secondary hover:bg-secondary hover:text-base-100 transition-colors">
+              <Link
+                to="/login"
+                className="hidden md:flex btn btn-sm btn-outline border-secondary text-secondary hover:bg-secondary hover:text-base-100 transition-colors"
+              >
                 Login
-              </button>
-              <button className="hidden md:flex btn btn-sm bg-secondary text-base-100 hover:bg-secondary/80 transition-colors  py-4">
+              </Link>
+              <Link
+                to="register"
+                className="hidden md:flex btn btn-sm bg-secondary text-base-100 hover:bg-secondary/80 transition-colors  py-4"
+              >
                 Register
-              </button>
+              </Link>
 
               {/* Mobile menu icon */}
               <label
@@ -128,7 +137,7 @@ const Navbar = () => {
               <button className="btn btn-outline border-secondary text-secondary hover:bg-secondary hover:text-base-100">
                 Login
               </button>
-              <button className="btn-primary bg-secondary text-base-100 hover:bg-secondary/80">
+              <button className="btn bg-secondary text-base-100 hover:bg-secondary/80">
                 Register
               </button>
               <div className="mt-3"></div>
