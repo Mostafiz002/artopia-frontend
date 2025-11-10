@@ -6,11 +6,11 @@ const Loader = () => {
     <StyledWrapper>
       <div className="loader">
         <figure className="iconLoaderProgress">
-          <svg className="iconLoaderProgressFirst" width={240} height={240}>
-            <circle cx={120} cy={120} r={100} />
+          <svg className="iconLoaderProgressFirst" width={120} height={120}>
+            <circle cx={60} cy={60} r={50} />
           </svg>
-          <svg className="iconLoaderProgressSecond" width={240} height={240}>
-            <circle cx={120} cy={120} r={100} />
+          <svg className="iconLoaderProgressSecond" width={120} height={120}>
+            <circle cx={60} cy={60} r={50} />
           </svg>
         </figure>
       </div>
@@ -37,7 +37,7 @@ const StyledWrapper = styled.div`
   }
 
   .iconLoaderProgress svg {
-    stroke-width: 16px;
+    stroke-width: 8px; /* reduced stroke width */
     fill: none;
     transform-origin: center;
     z-index: 999;
@@ -65,7 +65,7 @@ const StyledWrapper = styled.div`
 
   .iconLoaderProgressFirst circle {
     animation-name: circleFirst;
-    stroke-dasharray: 628, 628;
+    stroke-dasharray: 314, 314; /* adjusted for smaller radius */
     stroke-dashoffset: 0;
     stroke: #7c57f4;
     stroke-linecap: round;
@@ -77,7 +77,7 @@ const StyledWrapper = styled.div`
 
   .iconLoaderProgressSecond circle {
     animation-name: circleSecond;
-    stroke-dasharray: 628, 628;
+    stroke-dasharray: 314, 314; /* adjusted for smaller radius */
     stroke-dashoffset: 0;
     stroke: #bfb2f7;
     stroke-linecap: round;
@@ -86,22 +86,22 @@ const StyledWrapper = styled.div`
   @keyframes circleFirst {
     from,
     to {
-      stroke-dashoffset: 50;
+      stroke-dashoffset: 25; /* adjusted for smaller radius */
     }
 
     50% {
-      stroke-dashoffset: 625;
+      stroke-dashoffset: 312;
     }
   }
 
   @keyframes circleSecond {
     from,
     to {
-      stroke-dashoffset: -625;
+      stroke-dashoffset: -312;
     }
 
     50% {
-      stroke-dashoffset: -50;
+      stroke-dashoffset: -25;
     }
   }
 
@@ -113,6 +113,7 @@ const StyledWrapper = styled.div`
     to {
       transform: rotate(360deg);
     }
-  }`;
+  }
+`;
 
 export default Loader;

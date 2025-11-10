@@ -67,7 +67,7 @@ const Banner = () => {
         </motion.p>
 
         <motion.div variants={textVariant} custom={4}>
-          <Link to="" className="btn-primary-one">
+          <Link to="/explore-artworks" className="btn-primary-one">
             Explore Art
           </Link>
         </motion.div>
@@ -82,7 +82,7 @@ const Banner = () => {
         <motion.figure
           animate={{ opacity: 1, y: [0, 15, 0] }}
           transition={{
-            delay:0.5,
+            delay: 0.5,
             duration: 3,
             repeat: Infinity,
             ease: "easeInOut",

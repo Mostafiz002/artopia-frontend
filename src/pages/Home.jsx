@@ -1,6 +1,7 @@
 import React from "react";
 import Banner from "../components/home/Banner";
 import FeaturedArtwork from "../components/home/FeaturedArtwork";
+import Loader from "../components/Loader";
 
 const Home = () => {
   return (

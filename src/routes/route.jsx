@@ -4,6 +4,11 @@ import Home from "../pages/Home";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoute from "../provider/PrivateRoute";
+import ExploreArtworks from "../pages/ExploreArtworks";
+import AddArtworks from "../pages/AddArtworks";
+import MyGallery from "../pages/MyGallery";
+import MyFavorites from "../pages/MyFavorites";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +22,34 @@ const router = createBrowserRouter([
       },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
+      {
+        path: "/explore-artworks",
+        element: <ExploreArtworks />,
+      },
+      {
+        path: "/add-artworks",
+        element: (
+          <PrivateRoute>
+            <AddArtworks />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-gallery",
+        element: (
+          <PrivateRoute>
+            <MyGallery/>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-favorites",
+        element: (
+          <PrivateRoute>
+            <MyFavorites/>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
