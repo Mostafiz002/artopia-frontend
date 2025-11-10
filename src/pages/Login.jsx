@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { MdErrorOutline } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
@@ -16,6 +15,7 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
+    //signin
     signIn(email, password)
       .then(() => {
         navigate(`${location.state ? location.state : "/"}`);
@@ -68,7 +68,7 @@ const Login = () => {
   };
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-10 bg-base-100 text-base-content transition-all duration-300">
-      <title>Signup - Artopia</title>
+      <title>Login - Artopia</title>
       <div className="w-full max-w-md bg-base-200/50 border border-base-300 rounded-2xl p-8 shadow-lg backdrop-blur-sm">
         <h2 className="text-3xl playfair font-semibold text-center mb-6">
           Login
@@ -120,14 +120,20 @@ const Login = () => {
           {/* Google Sign In */}
           <button
             onClick={handleGoogleSignin}
-            className="btn btn-outline py-5.5 w-full border-base-300 hover:bg-base-300/50 flex items-center gap-2"
+            className="btn btn-outline py-5.5 w-full border-gray-300 dark:border-base-200 hover:bg-base-300/50 flex items-center gap-2"
           >
             <FcGoogle size={22} />
             Login with Google
           </button>
           <p className="text-center text-info mt-5 text-sm">
             Don't have an account?{" "}
-            <Link to="/register" className="text-primary hover:underline">
+            <Link
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
+              to="/register"
+              className="text-primary hover:underline"
+            >
               Register
             </Link>
           </p>

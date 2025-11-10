@@ -161,14 +161,20 @@ const Register = () => {
           {/* Google Sign In */}
           <button
             onClick={handleGoogleSignin}
-            className="btn btn-outline py-5.5 w-full border-base-300 hover:bg-base-300/50 flex items-center gap-2"
+            className="btn btn-outline py-5.5 w-full border-gray-300 dark:border-base-200  hover:bg-base-300/50 flex items-center gap-2"
           >
             <FcGoogle size={22} />
             Login with Google
           </button>
           <p className="text-center text-info mt-5 text-sm">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary hover:underline">
+            <Link
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
+              to="/login"
+              className="text-primary hover:underline"
+            >
               Login
             </Link>
           </p>
