@@ -185,7 +185,7 @@ const Navbar = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-72 min-h-full bg-base-100 text-base-content space-y-3 text-lg font-medium">
+          <ul className="menu p-4  w-72 min-h-full bg-base-100 text-base-content space-y-3 text-lg font-medium">
             <li className="mb-4 text-2xl font-bold text-primary">Artopia</li>
             {navLinks}
             <div className="mt-6 flex flex-col gap-3">

@@ -41,19 +41,22 @@ body {
 }
 
 .btn-primary-one {
-  @apply  btn btn-sm bg-secondary text-base-100 hover:bg-secondary/80 transition-colors  py-4;
+  @apply btn btn-sm bg-secondary text-base-100 hover:bg-secondary/80 transition-colors  py-4;
 }
 
-.title-main{
-  @apply text-[28px] md:text-[32px] font-medium
+.title-main {
+  @apply text-[28px] md:text-[32px] font-medium;
 }
 
 .paragraph {
   @apply md:text-lg text-info;
 }
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+.input-field {
+  @apply w-full px-4 py-3 rounded-lg border border-base-300 bg-transparent focus:outline-none focus:ring-2 focus:ring-primary;
+}
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /* 45° Shine Sweep Animation */
 .shine {
