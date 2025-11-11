@@ -9,6 +9,7 @@ import ExploreArtworks from "../pages/ExploreArtworks";
 import AddArtworks from "../pages/AddArtworks";
 import MyGallery from "../pages/MyGallery";
 import MyFavorites from "../pages/MyFavorites";
+import ArtworkDetails from "../components/ArtworkDetails";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
         path: "/my-gallery",
         element: (
           <PrivateRoute>
-            <MyGallery/>
+            <MyGallery />
           </PrivateRoute>
         ),
       },
@@ -46,7 +47,15 @@ const router = createBrowserRouter([
         path: "/my-favorites",
         element: (
           <PrivateRoute>
-            <MyFavorites/>
+            <MyFavorites />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/artwork-details/:id",
+        element: (
+          <PrivateRoute>
+            <ArtworkDetails />
           </PrivateRoute>
         ),
       },

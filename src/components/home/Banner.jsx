@@ -87,16 +87,19 @@ const Banner = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="w-1/2"
+          className="w-1/2 relative overflow-hidden group"
         >
           <img
             src="https://i.pinimg.com/736x/03/7c/77/037c77bd35ef894a75d8fcf563ed16ff.jpg"
             alt="Main artwork"
             className="w-full h-[400px] object-cover rounded-2xl shadow-lg"
           />
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="shine" />
+          </div>
         </motion.figure>
 
-        <motion.figure className="w-1/2 flex flex-col gap-6">
+        <motion.figure className=" w-1/2 flex flex-col gap-6">
           <motion.img
             animate={{ opacity: 1, y: [0, 10, 0] }}
             transition={{

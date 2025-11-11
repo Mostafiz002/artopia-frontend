@@ -143,7 +143,7 @@ const Navbar = () => {
               {user && (
                 <div className="relative inline-block group">
                   <div className="avatar cursor-pointer">
-                    <div className="w-10 rounded-full ring-2 ring-secondary">
+                    <div className="w-8 rounded-full ring-2 ring-secondary">
                       <img
                         src={
                           user?.photoURL ||

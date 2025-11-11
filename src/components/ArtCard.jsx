@@ -11,13 +11,11 @@ const ArtCard = ({ data }) => {
           alt={data.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-
         {/* Shine effect */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="shine" />
         </div>
       </div>
-
       {/* Card Content */}
       <div className="p-4 flex flex-col justify-between h-48">
         <div>
@@ -31,10 +29,9 @@ const ArtCard = ({ data }) => {
             By {data.artistName}
           </p>
         </div>
-
         <div className="mt-4">
           <Link
-            // to={`/artworks/${data._id}`}
+            to={`/artwork-details/${data._id}`}
             className="btn-primary-one rounded-xl!"
           >
             View Details
