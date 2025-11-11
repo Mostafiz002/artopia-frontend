@@ -34,7 +34,7 @@ const ArtCard = ({ data }) => {
 
         <div className="mt-4">
           <Link
-            to={`/artworks/${data._id}`}
+            // to={`/artworks/${data._id}`}
             className="btn-primary-one rounded-xl!"
           >
             View Details

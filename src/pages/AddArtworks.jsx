@@ -1,8 +1,46 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const AddArtworks = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const image = e.target.image.value;
+    const artistName = e.target.name.value;
+    const artistEmail = e.target.email.value;
+    const medium = e.target.medium.value;
+    const price = e.target.price.value;
+    const dimensions = e.target.dimensions.value;
+    const description = e.target.description.value;
+    const category = e.target.category.value;
+    const visibility = e.target.visibility.value;
+
+    const newArtwork = {
+      image,
+      title,
+      category,
+      medium,
+      description,
+      dimensions,
+      price,
+      visibility,
+      artistName,
+      artistEmail,
+    };
+
+    //post data
+    axiosSecure.post("/artworks", newArtwork).then((data) => {
+      console.log(data.data);
+      if (data.data.insertedId) {
+        toast.success("Your Artwork has been added");
+      }
+    });
+  };
 
   return (
     <section className=" flex flex-col md:flex-row  justify-center px-4 mt-30 mb-40 bg-base-100 text-base-content max-w-[1332px] mx-auto">
@@ -19,7 +57,7 @@ const AddArtworks = () => {
           Add New Artwork
         </h2>
 
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Title */}
           <div>
             <label className="block text-sm mb-2 text-info">Title</label>
@@ -65,31 +103,34 @@ const AddArtworks = () => {
                 defaultValue={user.email}
                 readOnly
                 type="email"
-                name="name"
+                name="email"
                 className="input-field"
                 required
               />
             </div>
           </div>
 
-          {/* Category + Medium */}
           <div className="flex gap-4">
+            {/* category */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Category</label>
               <select
-                name="category "
+                name="category"
                 className="input-field text-info"
                 required
               >
-                <option defaultChecked>Select Category</option>
-                <option>Painting</option>
-                <option>Photography</option>
-                <option>Sculpture</option>
-                <option>Digital Art</option>
-                <option>Illustration</option>
+                <option value="" disabled selected hidden>
+                  Select Category
+                </option>
+                <option value="Painting">Painting</option>
+                <option value="Photography">Photography</option>
+                <option value="Sculpture">Sculpture</option>
+                <option value="Digital Art">Digital Art</option>
+                <option value="Illustration">Illustration</option>
               </select>
             </div>
 
+            {/* medium */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Medium</label>
               <input
@@ -107,13 +148,15 @@ const AddArtworks = () => {
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Visibility</label>
               <select
-                name="visibility "
+                name="visibility"
                 className="input-field text-info"
                 required
               >
-                <option defaultChecked>Select Visibility</option>
-                <option>Public</option>
-                <option>Private</option>
+                <option value="" disabled selected hidden>
+                  Select Visibility
+                </option>
+                <option value="public">Public</option>
+                <option value="private">Private</option>
               </select>
             </div>
 
@@ -125,7 +168,6 @@ const AddArtworks = () => {
                 name="price"
                 placeholder="Enter price"
                 className="input-field"
-                required
               />
             </div>
           </div>
@@ -135,10 +177,9 @@ const AddArtworks = () => {
             <label className="block text-sm mb-2 text-info">Dimensions</label>
             <input
               type="text"
-              name="title"
-              placeholder="Enter artwork title"
+              name="dimensions"
+              placeholder="Enter dimensions (e.g., 24 x 36 in)"
               className="input-field"
-              required
             />
           </div>
 
