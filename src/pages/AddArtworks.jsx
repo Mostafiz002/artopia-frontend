@@ -31,11 +31,11 @@ const AddArtworks = () => {
       visibility,
       artistName,
       artistEmail,
+      artistImage: user.photoURL,
     };
 
     //post data
     axiosSecure.post("/artworks", newArtwork).then((data) => {
-      console.log(data.data);
       if (data.data.insertedId) {
         toast.success("Your Artwork has been added");
       }

@@ -10,6 +10,7 @@ import AddArtworks from "../pages/AddArtworks";
 import MyGallery from "../pages/MyGallery";
 import MyFavorites from "../pages/MyFavorites";
 import ArtworkDetails from "../components/ArtworkDetails";
+import Loader from "../components/Loader";
 
 const router = createBrowserRouter([
   {

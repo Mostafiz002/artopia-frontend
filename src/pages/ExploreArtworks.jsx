@@ -11,7 +11,7 @@ const ExploreArtworks = () => {
   }, [axios]);
 
   const loadAllArtworks = () => {
-    axios("/artworks").then((data) => {
+    axios("/artworks/public").then((data) => {
       setArtworks(data.data);
     });
   };
