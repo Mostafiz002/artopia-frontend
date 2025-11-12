@@ -75,7 +75,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className=" border-b border-gray-100 dark:border-gray-900">
+    <div className="fixed top-0 left-0 w-full z-50 border-b border-gray-100 dark:border-gray-900">
       <div className="drawer z-50">
         <input
           id="artopia-drawer"

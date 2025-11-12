@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AiFillLike } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import { useParams } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
+import { IoHeartOutline } from "react-icons/io5";
 
 const ArtworkDetails = () => {
   const axiosSecure = useAxiosSecure();
@@ -13,7 +14,9 @@ const ArtworkDetails = () => {
   const { id } = useParams();
   const [like, setLike] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
+  // get single artwork
   useEffect(() => {
     axiosSecure(`/artworks/${id}`).then((data) => {
       setArtwork(data.data);
@@ -24,6 +27,7 @@ const ArtworkDetails = () => {
     });
   }, [axiosSecure, id, user?.email]);
 
+  //  get all artwork for email
   useEffect(() => {
     if (user?.email) {
       axiosSecure(`/artworks?email=${artwork.artistEmail}`).then((data) => {
@@ -32,18 +36,42 @@ const ArtworkDetails = () => {
     }
   }, [axiosSecure, artwork.artistEmail, user]);
 
+  //get fav data
+  useEffect(() => {
+    axiosSecure(`/favorites/${id}`).then((data) => {
+      if (data.data.id == id) {
+        setFavorite(true);
+      }
+    });
+  }, [axiosSecure, id]);
+
   const handleLike = () => {
     if (liked) {
       return;
     }
 
+    axiosSecure.patch(`/artworks/like/${id}`).then((data) => {
+      if (data.data.modifiedCount > 0) {
+        setLike((prev) => prev + 1);
+        setLiked(true);
+      }
+    });
+  };
+
+  const handleFavorites = () => {
+    if (favorite) {
+      return;
+    }
+
     axiosSecure
-      .patch(`/artworks/like/${id}`, { email: user?.email })
+      .post(`/favorites/${id}`)
       .then((data) => {
-        if (data.data.modifiedCount > 0) {
-          setLike((prev) => prev + 1);
-          setLiked(true);
+        if (data.data.insertedId) {
+          setFavorite(true);
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -132,17 +160,29 @@ const ArtworkDetails = () => {
             <div className="flex gap-4">
               <button
                 onClick={handleLike}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition cursor-pointer ${
-                  liked
-                    ? "bg-primary text-base-100"
-                    : "bg-base-200 text-primary hover:bg-primary hover:text-base-100"
+                className={`flex items-center gap-2 px-5! py-5! rounded-full! transition ${
+                  liked ? "btn-primary-one py-[21px]!" : "btn-outline-one"
                 }`}
               >
-                {liked ? <AiFillLike /> : <AiFillLike />} {like} Likes
+                {liked ? <AiFillLike size={16} /> : <AiOutlineLike size={16} />}{" "}
+                {like} Likes
               </button>
 
-              <button className="flex items-center font-medium gap-2 px-6 py-3 rounded-full bg-base-200 text-primary hover:bg-primary hover:text-base-100 transition cursor-pointer">
-                <FcLike size={20} /> Add to Favorites
+              <button
+                onClick={handleFavorites}
+                className={`flex items-center gap-2 px-5! py-5! rounded-full! transition ${
+                  favorite ? "btn-primary-one  py-[21px]!" : "btn-outline-one"
+                }`}
+              >
+                {favorite ? (
+                  <>
+                    <FcLike size={20} /> Added to Favorites{" "}
+                  </>
+                ) : (
+                  <>
+                    <IoHeartOutline size={18} /> Add to Favorites
+                  </>
+                )}
               </button>
             </div>
           </div>

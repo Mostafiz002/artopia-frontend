@@ -45,7 +45,7 @@ const ArtCardLarge = ({ data }) => {
               <span className="text-sm">{data.likes}</span>
             </div>
           </div>
-          <Link
+          <Link onClick={()=>{ window.scrollTo(0, 0);}}
             to={`/artwork-details/${data._id}`}
             className="btn-primary-one w-full! mt-6 text-center"
           >

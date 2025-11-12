@@ -31,6 +31,9 @@ const ArtCard = ({ data }) => {
         </div>
         <div className="mt-4">
           <Link
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
             to={`/artwork-details/${data._id}`}
             className="btn-primary-one rounded-xl!"
           >
