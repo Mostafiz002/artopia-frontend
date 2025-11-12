@@ -46,28 +46,58 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink to="/" className={navLinkClass}>
+        <NavLink
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          to="/"
+          className={navLinkClass}
+        >
           Home
         </NavLink>
       </li>
 
       <li>
-        <NavLink to="/explore-artworks" className={navLinkClass}>
+        <NavLink
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          to="/explore-artworks"
+          className={navLinkClass}
+        >
           Explore Artworks
         </NavLink>
       </li>
       <li>
-        <NavLink to="/add-artworks" className={navLinkClass}>
+        <NavLink
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          to="/add-artworks"
+          className={navLinkClass}
+        >
           Add Artwork
         </NavLink>
       </li>
       <li>
-        <NavLink to="/my-gallery" className={navLinkClass}>
+        <NavLink
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          to="/my-gallery"
+          className={navLinkClass}
+        >
           My Gallery
         </NavLink>
       </li>
       <li>
-        <NavLink to="/my-favorites" className={navLinkClass}>
+        <NavLink
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          to="/my-favorites"
+          className={navLinkClass}
+        >
           My Favorites
         </NavLink>
       </li>

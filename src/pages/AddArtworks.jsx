@@ -38,6 +38,7 @@ const AddArtworks = () => {
     axiosSecure.post("/artworks", newArtwork).then((data) => {
       if (data.data.insertedId) {
         toast.success("Your Artwork has been added");
+        e.target.reset();
       }
     });
   };
@@ -113,10 +114,10 @@ const AddArtworks = () => {
           <div className="flex gap-4">
             {/* category */}
             <div className="flex-1">
-              <label className="block text-sm mb-2 text-info">Category</label>
+              <label className="block text-sm mb-2 text-info!">Category</label>
               <select
                 name="category"
-                className="input-field text-info"
+                className="input-field  text-accent! py-3.5!"
                 required
               >
                 <option value="" disabled selected hidden>
@@ -149,7 +150,7 @@ const AddArtworks = () => {
               <label className="block text-sm mb-2 text-info">Visibility</label>
               <select
                 name="visibility"
-                className="input-field text-info"
+                className="input-field  text-accent! py-3.5!"
                 required
               >
                 <option value="" disabled selected hidden>

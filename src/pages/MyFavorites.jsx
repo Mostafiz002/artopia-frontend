@@ -3,6 +3,7 @@ import { AiFillLike } from "react-icons/ai";
 import { FaHeartBroken } from "react-icons/fa";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const MyFavorites = () => {
   const axiosSecure = useAxiosSecure();
@@ -31,6 +32,7 @@ const MyFavorites = () => {
       if (data.data.deletedCount) {
         setFavorites((prev) => prev.filter((art) => art._id !== artId));
         setFavCollection((prev) => prev.filter((fav) => fav._id !== favId));
+        toast.success("Removed from favorites")
       }
     });
   };

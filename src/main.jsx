@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")).render(
         position="top-center"
         reverseOrder={true}
         toastOptions={{
-          duration: 4000,
+          duration: 3000,
         }}
       />
     </AuthProvider>

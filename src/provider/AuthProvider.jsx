@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const [artworks, setArtworks] = useState([]);
 
   //create user
   const createUser = (email, password) => {
@@ -76,6 +77,8 @@ const AuthProvider = ({ children }) => {
     signIn,
     googleSignIn,
     resetPassword,
+    artworks,
+    setArtworks,
   };
 
   return <AuthContext value={authData}>{children}</AuthContext>;

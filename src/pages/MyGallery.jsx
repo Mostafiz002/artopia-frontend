@@ -1,47 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAuth from "../hooks/useAuth";
+import UpdateModal from "../components/UpdateModal";
+import Swal from "sweetalert2";
 
 const MyGallery = () => {
-  // Dummy data
-  const artworks = [
-    {
-      _id: "1",
-      image:
-        "https://i.pinimg.com/736x/15/78/ad/1578ad209a9b26b0a61a54a0a60abd1a.jpg",
-      title: "The Starry Night",
-      likes: 91,
-      price: 120,
-    },
-    {
-      _id: "2",
-      image:
-        "https://i.pinimg.com/736x/4b/4e/ad/4b4ead8134fa05ab6f94b21a228f2837.jpg",
-      title: "Silent Whispers",
-      likes: 54,
-      price: 95,
-    },
-    {
-      _id: "3",
-      image:
-        "https://i.pinimg.com/736x/18/a7/a6/18a7a6afb3276256f7e4996509856502.jpg",
-      title: "Morning Glow",
-      likes: 73,
-      price: 150,
-    },
-  ];
+  const axiosSecure = useAxiosSecure();
+  const { user,artworks,setArtworks } = useAuth();
+  
+  const [selectedArtId, setSelectedArtId] = useState(null);
+
+  const openUpdateModal = (id) => {
+    setSelectedArtId(id);
+    document.getElementById("my_modal_2").showModal();
+  };
+
+  useEffect(() => {
+    axiosSecure(`/artworks?email=${user?.email}`).then((data) => {
+      setArtworks(data.data);
+    });
+  }, [axiosSecure, user?.email,setArtworks]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#333333",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/artworks/${id}`).then((data) => {
+          console.log(data.data);
+          if (data.data.deletedCount == 1) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Artwork has been deleted.",
+              icon: "success",
+            });
+            setArtworks((prev) => prev.filter((art) => art._id !== id));
+          }
+        });
+      }
+    });
+  };
+
 
   return (
     <section className="py-24 bg-base-100 text-base-content transition-all duration-300">
       <div className="max-w-[1432px] mx-auto px-4">
-        {/* Header */}
         <div className="text-center mb-12">
           <h2 className="title-main playfair">My Gallery</h2>
           <p className="paragraph mt-3 w-full md:w-[45%] mx-auto">
-            Explore your uploaded artworks — manage, edit, and keep track of
+            Explore your uploaded artworks - manage, edit, and keep track of
             your creative portfolio.
           </p>
         </div>
-
         {/* Table for desktop */}
         <div className="overflow-x-auto bg-base-200/50 border border-base-300 rounded-2xl shadow-lg">
           <table className="hidden md:table w-full text-center border-collapse">
@@ -85,9 +102,20 @@ const MyGallery = () => {
                     ${art.price}
                   </td>
                   <td className="border border-base-300">
+                    {/*--------- buttons ----------*/}
                     <div className="flex justify-center items-center gap-2">
-                      <button className="btn-primary-one">Update</button>
-                      <button className="btn-primary-one  text-info!  bg-red-600! hover:bg-red-700! transition">
+                      <button
+                        onClick={() => openUpdateModal(art._id)}
+                        className="btn-primary-one"
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleDelete(art._id);
+                        }}
+                        className="btn-primary-one  text-[#f1f1f1]!  bg-red-600! hover:bg-red-700! transition"
+                      >
                         Delete
                       </button>
                     </div>
@@ -96,6 +124,8 @@ const MyGallery = () => {
               ))}
             </tbody>
           </table>
+         
+<div className=""> <UpdateModal selectedArtId={selectedArtId} /></div>
           {/* view for mobile */}
           <div className="md:hidden p-4 space-y-6">
             {artworks.map((art) => (
@@ -118,9 +148,21 @@ const MyGallery = () => {
                     </div>
                     <p className="text-info font-medium">${art.price}</p>
                   </div>
+
+                  {/* buttons */}
                   <div className="flex gap-4 mt-4">
-                    <button className="btn-primary-one">Update</button>
-                    <button className="btn-primary-one btn-primary-one  text-info!  bg-red-600! hover:bg-red-700! transition">
+                   <button
+                        onClick={() => openUpdateModal(art._id)}
+                        className="btn-primary-one"
+                      >
+                        Update
+                      </button>
+                    <button
+                      onClick={() => {
+                        handleDelete(art._id);
+                      }}
+                      className="btn-primary-one btn-primary-one  text-info!  bg-red-600! hover:bg-red-700! transition"
+                    >
                       Delete
                     </button>
                   </div>
@@ -136,6 +178,7 @@ const MyGallery = () => {
           )}
         </div>
       </div>
+      <div className=""> <UpdateModal selectedArtId={selectedArtId} /></div>
     </section>
   );
 };
