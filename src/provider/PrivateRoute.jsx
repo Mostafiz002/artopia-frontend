@@ -8,7 +8,11 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20"><Loader /></div>;
+    return (
+      <div className="flex items-center justify-center pb-20 pt-40">
+        <Loader />
+      </div>
+    );
   }
 
   if (user && user?.email) {

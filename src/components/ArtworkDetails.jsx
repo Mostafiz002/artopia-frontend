@@ -15,16 +15,19 @@ const ArtworkDetails = () => {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    axiosSecure(`/artworks/${id}`).then((res) => {
-      setArtwork(res.data);
-      setLike(res.data.likes);
+    axiosSecure(`/artworks/${id}`).then((data) => {
+      setArtwork(data.data);
+      setLike(data.data.likes);
+      if (data.data.likedBy?.includes(user?.email)) {
+        setLiked(true);
+      }
     });
-  }, [axiosSecure, id]);
+  }, [axiosSecure, id, user?.email]);
 
   useEffect(() => {
     if (user?.email) {
-      axiosSecure(`/artworks?email=${artwork.artistEmail}`).then((res) => {
-        setArtCount(res.data.length);
+      axiosSecure(`/artworks?email=${artwork.artistEmail}`).then((data) => {
+        setArtCount(data.data.length);
       });
     }
   }, [axiosSecure, artwork.artistEmail, user]);
@@ -36,12 +39,11 @@ const ArtworkDetails = () => {
 
     axiosSecure
       .patch(`/artworks/like/${id}`, { email: user?.email })
-      .then((res) => {
-        console.log(res)
-        if (res.modifiedCount) {
+      .then((data) => {
+        if (data.data.modifiedCount > 0) {
           setLike((prev) => prev + 1);
+          setLiked(true);
         }
-        setLiked(true);
       });
   };
 
@@ -130,11 +132,16 @@ const ArtworkDetails = () => {
             <div className="flex gap-4">
               <button
                 onClick={handleLike}
-                className="flex items-center gap-2 px-6 py-3 rounded-full bg-base-200 text-primary hover:bg-primary hover:text-base-100 transition cursor-pointer"
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition cursor-pointer ${
+                  liked
+                    ? "bg-primary text-base-100"
+                    : "bg-base-200 text-primary hover:bg-primary hover:text-base-100"
+                }`}
               >
-                <AiFillLike /> {like} Likes
+                {liked ? <AiFillLike /> : <AiFillLike />} {like} Likes
               </button>
-              <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-base-200 text-primary hover:bg-primary hover:text-base-100 transition cursor-pointer">
+
+              <button className="flex items-center font-medium gap-2 px-6 py-3 rounded-full bg-base-200 text-primary hover:bg-primary hover:text-base-100 transition cursor-pointer">
                 <FcLike size={20} /> Add to Favorites
               </button>
             </div>

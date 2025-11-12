@@ -9,7 +9,7 @@ const MainLayout = () => {
       <header className="">
         <Header />
       </header>
-      <main className="flex-1">
+      <main className="flex-1 ">
         <Outlet />
       </main>
       <footer>
