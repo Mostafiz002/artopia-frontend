@@ -15,7 +15,16 @@ const Footer = () => {
       <div className="footer sm:footer-horizontal text-base-content py-10 max-w-[1432px] mx-auto px-4">
         {/* Left Section */}
         <aside>
-          <h2 className="text-2xl playfair font-bold text-primary">Artopia</h2>
+          <Link
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+            to="/"
+          >
+            <h2 className="text-2xl playfair font-bold text-primary">
+              Artopia
+            </h2>
+          </Link>
           <p className="max-w-xs text-base-content/70 mt-2">
             Discover, collect, and showcase stunning digital artworks from
             creators around the world.

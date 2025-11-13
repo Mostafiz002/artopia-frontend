@@ -2,6 +2,7 @@ import React from "react";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const AddArtworks = () => {
   const { user } = useAuth();
@@ -34,7 +35,6 @@ const AddArtworks = () => {
       artistImage: user.photoURL,
     };
 
-    //post data
     axiosSecure.post("/artworks", newArtwork).then((data) => {
       if (data.data.insertedId) {
         toast.success("Your Artwork has been added");
@@ -44,21 +44,58 @@ const AddArtworks = () => {
   };
 
   return (
-    <section className=" flex flex-col md:flex-row  justify-center px-4 mt-30 mb-40 bg-base-100 text-base-content max-w-[1332px] mx-auto">
+    <section className="flex flex-col md:flex-row justify-center px-4 mt-30 mb-40 bg-base-100 text-base-content max-w-[1332px] mx-auto">
       <title>Add Artwork - Artopia</title>
-      <div className="hidden md:block w-1/2">
+
+      <motion.div
+        className="hidden md:block w-[40%] relative overflow-hidden rounded-l-2xl"
+        initial={{ opacity: 0, x: -80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <img
-          src="https://i.pinimg.com/736x/4b/4e/ad/4b4ead8134fa05ab6f94b21a228f2837.jpg"
+          src="https://i.pinimg.com/1200x/bc/4d/f3/bc4df30ff5fe95967e512daaf6b6baef.jpg"
           alt="Art"
           className="object-cover w-full h-full rounded-l-2xl"
         />
-      </div>
-      <div className="w-full md:w-1/2 bg-base-200/50 border border-base-300 rounded-l-2xl md:rounded-l-none rounded-r-2xl p-8 shadow-lg backdrop-blur-sm flex flex-col justify-center">
-        <h2 className="text-3xl playfair font-semibold text-center mb-6">
-          Add New Artwork
-        </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/*  glowing circle */}
+        <motion.div
+          className="absolute top-[31%] left-[36%] w-40 h-40 rounded-full bg-white opacity-10"
+          animate={{
+            scale: [0.87, 0.9, 0.87],
+            opacity: [0.1, 0.4, 0.1],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ transform: "translate(-50%, -50%)" }}
+        />
+      </motion.div>
+      <motion.div
+        className="w-full md:w-[60%] bg-base-200/50 border border-base-300 rounded-l-2xl md:rounded-l-none rounded-r-2xl p-8 shadow-lg backdrop-blur-sm flex flex-col justify-center"
+        initial={{ opacity: 0, x: 80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <motion.h2
+          className="text-3xl playfair font-semibold text-center mb-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Add New Artwork
+        </motion.h2>
+
+        <motion.form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 1 }}
+        >
           {/* Title */}
           <div>
             <label className="block text-sm mb-2 text-info">Title</label>
@@ -84,7 +121,6 @@ const AddArtworks = () => {
           </div>
 
           <div className="flex gap-4">
-            {/* user name */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Name</label>
               <input
@@ -97,7 +133,6 @@ const AddArtworks = () => {
               />
             </div>
 
-            {/* email */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Email</label>
               <input
@@ -112,12 +147,11 @@ const AddArtworks = () => {
           </div>
 
           <div className="flex gap-4">
-            {/* category */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info!">Category</label>
               <select
                 name="category"
-                className="input-field  text-accent! py-3.5!"
+                className="input-field text-accent! py-3.5!"
                 required
               >
                 <option value="" disabled selected hidden>
@@ -130,7 +164,6 @@ const AddArtworks = () => {
               </select>
             </div>
 
-            {/* medium */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Medium</label>
               <input
@@ -144,12 +177,11 @@ const AddArtworks = () => {
           </div>
 
           <div className="flex gap-4">
-            {/* visibility */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Visibility</label>
               <select
                 name="visibility"
-                className="input-field  text-accent! py-3.5!"
+                className="input-field text-accent! py-3.5!"
                 required
               >
                 <option value="" disabled selected hidden>
@@ -160,7 +192,6 @@ const AddArtworks = () => {
               </select>
             </div>
 
-            {/* price */}
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Price ($)</label>
               <input
@@ -172,7 +203,6 @@ const AddArtworks = () => {
             </div>
           </div>
 
-          {/* dimensions */}
           <div>
             <label className="block text-sm mb-2 text-info">Dimensions</label>
             <input
@@ -183,7 +213,6 @@ const AddArtworks = () => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-sm mb-2 text-info">Description</label>
             <textarea
@@ -195,15 +224,16 @@ const AddArtworks = () => {
             ></textarea>
           </div>
 
-          {/* Submit */}
-          <button
+          <motion.button
             type="submit"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
             className="btn bg-secondary text-base-100 hover:bg-secondary/80 transition-colors py-5.5 w-full"
           >
             Add Artwork
-          </button>
-        </form>
-      </div>
+          </motion.button>
+        </motion.form>
+      </motion.div>
     </section>
   );
 };
