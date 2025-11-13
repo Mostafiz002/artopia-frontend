@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import ArtCardLarge from "../components/ArtCardLarge";
 import Loader from "../components/Loader";
+import { motion } from "framer-motion";
 
 const ExploreArtworks = () => {
   const [artworks, setArtworks] = useState([]);
@@ -41,24 +42,46 @@ const ExploreArtworks = () => {
 
   return (
     <section className="flex flex-col items-center justify-center max-w-[1432px] mx-auto px-4">
-      <h2 className="title-main playfair mt-24 text-center">Our All Artwork</h2>
-      <p className="paragraph my-3 text-center  w-full md:w-150">
+      <motion.h2
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="title-main playfair mt-24 text-center"
+      >
+        Our All Artwork
+      </motion.h2>
+      <motion.p
+        className="paragraph my-3 text-center  w-full md:w-150"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
         Discover exciting community moments, events, and artist collaborations
         that inspire creativity.
-      </p>
+      </motion.p>
       <div className="w-full mb-12 mt-5 md:mt-0 flex flex-col md:flex-row gap-6 justify-between">
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="select focus:outline-none pl-5 outline-none duration-400 hover:border-accent/50 focus:border-accent/50 rounded-full"
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.6 }}
         >
-          <option value="all">Sort by category</option>
-          <option value="Oil Painting">Oil Painting</option>
-          <option value="Acrylic Painting">Acrylic Painting</option>
-          <option value="Sketch">Sketch</option>
-          <option value="Water Color">Water Color</option>
-        </select>
-        <form
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="select focus:outline-none pl-5 outline-none duration-400 hover:border-accent/50 focus:border-accent/50 rounded-full"
+          >
+            <option value="all">Sort by category</option>
+            <option value="Oil Painting">Oil Painting</option>
+            <option value="Acrylic Painting">Acrylic Painting</option>
+            <option value="Sketch">Sketch</option>
+            <option value="Water Color">Water Color</option>
+          </select>
+        </motion.div>
+        <motion.form
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.6 }}
           onSubmit={handleSearch}
           className="flex gap-2 items-center justify-center  "
         >
@@ -88,7 +111,7 @@ const ExploreArtworks = () => {
           >
             Search
           </button>
-        </form>
+        </motion.form>
       </div>
 
       {/* card */}
@@ -97,11 +120,16 @@ const ExploreArtworks = () => {
           <Loader />
         </div>
       ) : filteredArtworks.length > 0 ? (
-        <div className="mb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.4 }}
+          className="mb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {filteredArtworks.map((data) => (
             <ArtCardLarge key={data._id} data={data} />
           ))}
-        </div>
+        </motion.div>
       ) : (
         <>
           <p className="text-info text-center text-lg">

@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router";
 import { AiFillLike } from "react-icons/ai";
+import { motion } from "framer-motion";
 
 const ArtCardLarge = ({ data }) => {
   return (
-    <div className="relative border border-accent/20 bg-base-100 shadow-md hover:shadow-xl hover:border-accent/40 duration-500 rounded-2xl overflow-hidden group transition-transform hover:-translate-y-2">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: "easeInOut", delay: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      className="relative border border-accent/20 bg-base-100 shadow-md hover:shadow-xl hover:border-accent/40 duration-500 rounded-2xl overflow-hidden group transition-transform hover:-translate-y-2"
+    >
       {/* Image Section */}
       <div className="relative h-80 w-full overflow-hidden">
         <img
@@ -45,7 +52,10 @@ const ArtCardLarge = ({ data }) => {
               <span className="text-sm">{data.likes}</span>
             </div>
           </div>
-          <Link onClick={()=>{ window.scrollTo(0, 0);}}
+          <Link
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
             to={`/artwork-details/${data._id}`}
             className="btn-primary-one w-full! mt-6 text-center"
           >
@@ -53,7 +63,7 @@ const ArtCardLarge = ({ data }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 import { Link } from "react-router";
+import { motion } from "framer-motion";
 
 const MyFavorites = () => {
   const axiosSecure = useAxiosSecure();
@@ -62,13 +63,30 @@ const MyFavorites = () => {
     <section className="py-24 bg-base-100 text-base-content transition-all duration-300">
       <div className="max-w-[1432px] mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="title-main playfair">My Favorites</h2>
-          <p className="paragraph mt-3 w-full md:w-[45%] mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="title-main playfair"
+          >
+            My Favorites
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="paragraph mt-3 w-full md:w-[45%] mx-auto"
+          >
             A collection of your most admired artworks - explore, relive, and
             manage your creative inspirations.
-          </p>
+          </motion.p>
         </div>
-        <div className="overflow-x-auto bg-base-200/50 border border-base-300 rounded-lg shadow-none">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.5 }}
+          className="overflow-x-auto bg-base-200/50 border border-base-300 rounded-lg shadow-none"
+        >
           <table className="hidden md:table w-full">
             <thead className="bg-base-300/40 border-b border-base-300">
               <tr className="text-primary text-base text-center">
@@ -150,7 +168,7 @@ const MyFavorites = () => {
                   className="border border-base-300 rounded-xl p-4 bg-base-100 shadow-sm"
                 >
                   <div className="flex flex-col items-center text-center">
-                    <Link
+                    <Link className="w-full"
                       onClick={() => {
                         window.scrollTo(0, 0);
                       }}
@@ -159,7 +177,7 @@ const MyFavorites = () => {
                       <img
                         src={art.image}
                         alt={art.title}
-                        className="w-full h-42 object-cover rounded-xl border border-base-300 shadow"
+                        className="w-full h-80 object-cover rounded-xl border border-base-300 shadow"
                       />
                     </Link>
                     <h3 className="text-lg font-semibold text-primary mt-3">
@@ -192,7 +210,7 @@ const MyFavorites = () => {
                 No favorite artworks yet.
               </div>
             ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
