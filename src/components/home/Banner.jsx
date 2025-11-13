@@ -41,11 +41,11 @@ const Banner = () => {
           <span>
             <Typewriter
               words={[
-                "Around the World",
                 "Global Artists",
-                "Diverse Cultures",
                 "Creative Minds",
+                "Across Borders",
                 "Every Corner",
+                "Worldwide",
               ]}
               loop={0}
               cursor

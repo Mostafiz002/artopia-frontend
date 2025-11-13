@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router";
+import { motion } from "framer-motion";
 
 const ArtCard = ({ data }) => {
   return (
-    <div className="relative transition border border-accent/20 bg-base-100 shadow-sm hover:shadow-lg hover:border-accent/40 duration-500 rounded-2xl overflow-hidden hover:-translate-y-2  group">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: "easeInOut", delay: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      className="relative transition border border-accent/20 bg-base-100 shadow-sm hover:shadow-lg hover:border-accent/40 duration-500 rounded-2xl overflow-hidden hover:-translate-y-2  group"
+    >
       {/* Image container */}
       <div className="relative h-64 w-full overflow-hidden">
         <img
@@ -41,7 +48,7 @@ const ArtCard = ({ data }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
