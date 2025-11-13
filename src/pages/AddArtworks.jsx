@@ -123,11 +123,10 @@ const AddArtworks = () => {
                 <option value="" disabled selected hidden>
                   Select Category
                 </option>
-                <option value="Painting">Painting</option>
-                <option value="Photography">Photography</option>
-                <option value="Sculpture">Sculpture</option>
-                <option value="Digital Art">Digital Art</option>
-                <option value="Illustration">Illustration</option>
+                <option value="Oil Painting">Oil Painting</option>
+                <option value="Acrylic Painting">Acrylic Painting</option>
+                <option value="Sketch">Sketch</option>
+                <option value="Water Color">Water Color</option>
               </select>
             </div>
 

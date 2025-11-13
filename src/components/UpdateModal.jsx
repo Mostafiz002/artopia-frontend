@@ -9,6 +9,8 @@ const UpdateModal = ({ selectedArtId }) => {
   const [art, setArt] = useState({});
 
   useEffect(() => {
+    if (!selectedArtId) return;
+    setArt({}); // Reset before fetching
     axiosSecure(`/artworks/${selectedArtId}`).then((data) => {
       setArt(data.data);
     });
@@ -16,33 +18,24 @@ const UpdateModal = ({ selectedArtId }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    const title = e.target.title.value;
-    const image = e.target.image.value;
-    const medium = e.target.medium.value;
-    const price = e.target.price.value;
-    const dimensions = e.target.dimensions.value;
-    const description = e.target.description.value;
-    const category = e.target.category.value;
-    const visibility = e.target.visibility.value;
     const update = {
-      title,
-      image,
-      medium,
-      price,
-      dimensions,
-      description,
-      category,
-      visibility,
+      title: art.title,
+      image: art.image,
+      medium: art.medium,
+      price: art.price,
+      dimensions: art.dimensions,
+      description: art.description,
+      category: art.category,
+      visibility: art.visibility,
     };
 
     axiosSecure.patch(`/artworks/${selectedArtId}`, update).then((data) => {
-      console.log(data);
       if (data.data.modifiedCount == 1) {
         toast.success("Artwork updated");
         axiosSecure(`/artworks/${selectedArtId}`).then((data) => {
           const updatedArt = data.data;
           setArtworks((prev) =>
-            prev.map((art) => (art._id === selectedArtId ? updatedArt : art))
+            prev.map((a) => (a._id === selectedArtId ? updatedArt : a))
           );
           document.getElementById("my_modal_2").close();
         });
@@ -52,12 +45,6 @@ const UpdateModal = ({ selectedArtId }) => {
 
   return (
     <div>
-      <button
-        onClick={() => document.getElementById("my_modal_2").showModal()}
-        className="hidden"
-      >
-        Update
-      </button>
       <dialog id="my_modal_2" className="modal">
         <form
           onSubmit={handleUpdate}
@@ -73,7 +60,8 @@ const UpdateModal = ({ selectedArtId }) => {
             <input
               type="text"
               name="title"
-              defaultValue={art?.title}
+              value={art.title || ""}
+              onChange={(e) => setArt({ ...art, title: e.target.value })}
               className="input-field"
             />
           </div>
@@ -84,7 +72,8 @@ const UpdateModal = ({ selectedArtId }) => {
             <input
               type="url"
               name="image"
-              defaultValue={art?.image}
+              value={art.image || ""}
+              onChange={(e) => setArt({ ...art, image: e.target.value })}
               className="input-field"
             />
           </div>
@@ -94,7 +83,7 @@ const UpdateModal = ({ selectedArtId }) => {
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Name</label>
               <input
-                defaultValue={user?.displayName}
+                value={user?.displayName || ""}
                 readOnly
                 type="text"
                 name="name"
@@ -104,7 +93,7 @@ const UpdateModal = ({ selectedArtId }) => {
             <div className="flex-1">
               <label className="block text-sm mb-2 text-info">Email</label>
               <input
-                defaultValue={user?.email}
+                value={user?.email || ""}
                 readOnly
                 type="email"
                 name="email"
@@ -119,27 +108,17 @@ const UpdateModal = ({ selectedArtId }) => {
               <label className="block text-sm mb-2 text-info">Category</label>
               <select
                 name="category"
-                defaultValue={art?.category}
-                className="input-field  py-3.5!"
+                value={art.category || ""}
+                onChange={(e) => setArt({ ...art, category: e.target.value })}
+                className="input-field text-accent! py-3.5!"
               >
                 <option value="" disabled hidden>
                   Select Category
                 </option>
-                <option className="text-accent!" value="Painting">
-                  Painting
-                </option>
-                <option className="text-accent!" value="Photography">
-                  Photography
-                </option>
-                <option className="text-accent!" value="Sculpture">
-                  Sculpture
-                </option>
-                <option className="text-accent!" value="Digital Art">
-                  Digital Art
-                </option>
-                <option className="text-accent!" value="Illustration">
-                  Illustration
-                </option>
+                <option value="Oil Painting">Oil Painting</option>
+                <option value="Acrylic Painting">Acrylic Painting</option>
+                <option value="Sketch">Sketch</option>
+                <option value="Water Color">Water Color</option>
               </select>
             </div>
 
@@ -148,7 +127,8 @@ const UpdateModal = ({ selectedArtId }) => {
               <input
                 type="text"
                 name="medium"
-                defaultValue={art?.medium}
+                value={art.medium || ""}
+                onChange={(e) => setArt({ ...art, medium: e.target.value })}
                 className="input-field"
               />
             </div>
@@ -160,18 +140,15 @@ const UpdateModal = ({ selectedArtId }) => {
               <label className="block text-sm mb-2 text-info">Visibility</label>
               <select
                 name="visibility"
-                defaultValue={art?.visibility}
-                className="input-field text-info"
+                value={art.visibility || ""}
+                onChange={(e) => setArt({ ...art, visibility: e.target.value })}
+                className="input-field text-accent!"
               >
                 <option value="" disabled hidden>
                   Select Visibility
                 </option>
-                <option className="text-accent!" value="public">
-                  Public
-                </option>
-                <option className="text-accent!" value="private">
-                  Private
-                </option>
+                <option value="public">Public</option>
+                <option value="private">Private</option>
               </select>
             </div>
             <div className="flex-1">
@@ -179,7 +156,8 @@ const UpdateModal = ({ selectedArtId }) => {
               <input
                 type="number"
                 name="price"
-                defaultValue={art?.price}
+                value={art.price || ""}
+                onChange={(e) => setArt({ ...art, price: e.target.value })}
                 className="input-field"
               />
             </div>
@@ -191,7 +169,8 @@ const UpdateModal = ({ selectedArtId }) => {
             <input
               type="text"
               name="dimensions"
-              defaultValue={art?.dimensions}
+              value={art.dimensions || ""}
+              onChange={(e) => setArt({ ...art, dimensions: e.target.value })}
               className="input-field"
             />
           </div>
@@ -201,13 +180,14 @@ const UpdateModal = ({ selectedArtId }) => {
             <label className="block text-sm mb-2 text-info">Description</label>
             <textarea
               name="description"
-              defaultValue={art?.description}
+              value={art.description || ""}
+              onChange={(e) => setArt({ ...art, description: e.target.value })}
               rows="4"
               className="input-field resize-none"
             ></textarea>
           </div>
 
-          {/* Submit Button */}
+          {/* Button */}
           <button
             type="submit"
             className="w-full! py-5.5! rounded-full! text-base! btn-primary-one "

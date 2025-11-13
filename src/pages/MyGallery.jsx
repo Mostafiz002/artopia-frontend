@@ -60,11 +60,11 @@ const MyGallery = () => {
           </p>
         </div>
         {/* Table for desktop */}
-        <div className="overflow-x-auto bg-base-200/50 border border-base-300 rounded-2xl shadow-lg">
+        <div className="overflow-x-auto bg-base-200/50 border border-base-300 rounded-xl shadow-lg">
           <table className="hidden md:table w-full text-center border-collapse">
             <thead className="bg-base-300/40 border-b border-base-300">
               <tr className="text-primary text-base">
-                <th className="border border-base-300 rounded-tl-2xl py-4">
+                <th className="border border-base-300 rounded-tl-xl py-4">
                   Artwork
                 </th>
                 <th className="border border-base-300">Title</th>
@@ -86,7 +86,7 @@ const MyGallery = () => {
                       <img
                         src={art.image}
                         alt={art.title}
-                        className="w-20 h-20 object-cover rounded-xl border border-base-300 shadow-sm"
+                        className="w-20 h-20 object-cover rounded-md border border-base-300 shadow-sm"
                       />
                     </div>
                   </td>

@@ -120,6 +120,9 @@ const Navbar = () => {
             {/* Logo */}
             <div className=" navbar-start">
               <Link
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                }}
                 to="/"
                 className="text-2xl playfair font-extrabold text-primary tracking-wide"
               >

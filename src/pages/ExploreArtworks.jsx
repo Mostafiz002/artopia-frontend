@@ -5,6 +5,7 @@ import ArtCardLarge from "../components/ArtCardLarge";
 const ExploreArtworks = () => {
   const [artworks, setArtworks] = useState([]);
   const axios = useAxios();
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     loadAllArtworks();
@@ -25,6 +26,11 @@ const ExploreArtworks = () => {
     });
   };
 
+  const filteredArtworks =
+    filter === "all"
+      ? artworks
+      : artworks.filter((art) => art.category === filter);
+
   return (
     <section className="flex flex-col items-center justify-center max-w-[1432px] mx-auto px-4">
       <h2 className="title-main playfair mt-24 text-center">Our All Artwork</h2>
@@ -32,40 +38,55 @@ const ExploreArtworks = () => {
         Discover exciting community moments, events, and artist collaborations
         that inspire creativity.
       </p>
-      <form
-        onSubmit={handleSearch}
-        className="flex gap-2 items-center justify-center  mb-12 "
-      >
-        <label className="input rounded-full md:w-76  focus:outline-none  outline-none duration-400 hover:border-accent/50 focus:border-accent/50">
-          <svg
-            className="h-[1em] opacity-50"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2.5"
-              fill="none"
-              stroke="currentColor"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </g>
-          </svg>
-          <input name="search" type="search" required placeholder="Search" />
-        </label>
-        {/* btn */}
-        <button
-          type="submit"
-          className="btn-primary-one px-4.5! py-5! rounded-full!"
+      <div className="w-full mb-12 mt-5 md:mt-0 flex flex-col md:flex-row gap-6 justify-between">
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="select focus:outline-none pl-5 outline-none duration-400 hover:border-accent/50 focus:border-accent/50 rounded-full"
         >
-          Search
-        </button>
-      </form>
-      {artworks.length > 0 ? (
+          <option value="all">Sort by category</option>
+          <option value="Oil Painting">Oil Painting</option>
+          <option value="Acrylic Painting">Acrylic Painting</option>
+          <option value="Sketch">Sketch</option>
+          <option value="Water Color">Water Color</option>
+        </select>
+        <form
+          onSubmit={handleSearch}
+          className="flex gap-2 items-center justify-center  "
+        >
+          <label className="input rounded-full md:w-76  focus:outline-none  outline-none duration-400 hover:border-accent/50 focus:border-accent/50">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input name="search" type="search" required placeholder="Search" />
+          </label>
+          {/* btn */}
+          <button
+            type="submit"
+            className="btn-primary-one px-4.5! py-5! rounded-full!"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+
+      {/* card */}
+      {filteredArtworks.length > 0 ? (
         <div className="mb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {artworks.map((data) => (
+          {filteredArtworks.map((data) => (
             <ArtCardLarge key={data._id} data={data} />
           ))}
         </div>
