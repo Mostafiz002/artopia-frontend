@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import ArtCardLarge from "../components/ArtCardLarge";
+import Loader from "../components/Loader";
 
 const ExploreArtworks = () => {
   const [artworks, setArtworks] = useState([]);
   const axios = useAxios();
   const [filter, setFilter] = useState("all");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadAllArtworks();
   }, [axios]);
 
   const loadAllArtworks = () => {
-    axios("/artworks/public").then((data) => {
-      setArtworks(data.data);
-    });
+    setLoading(true);
+    axios("/artworks/public")
+      .then((data) => {
+        setArtworks(data.data);
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleSearch = (e) => {
+    setLoading(true);
     e.preventDefault();
     const search = e.target.search.value;
 
-    axios(`/search?search=${search}`).then((data) => {
-      setArtworks(data.data);
-    });
+    axios(`/search?search=${search}`)
+      .then((data) => {
+        setArtworks(data.data);
+      })
+      .finally(() => setLoading(false));
   };
 
   const filteredArtworks =
@@ -71,7 +79,7 @@ const ExploreArtworks = () => {
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input name="search" type="search" required placeholder="Search" />
+            <input name="search" type="search" placeholder="Search" />
           </label>
           {/* btn */}
           <button
@@ -84,7 +92,11 @@ const ExploreArtworks = () => {
       </div>
 
       {/* card */}
-      {filteredArtworks.length > 0 ? (
+      {loading ? (
+        <div className="flex items-center justify-center pb-80 pt-40">
+          <Loader />
+        </div>
+      ) : filteredArtworks.length > 0 ? (
         <div className="mb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredArtworks.map((data) => (
             <ArtCardLarge key={data._id} data={data} />

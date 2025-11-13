@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import ArtCard from "../ArtCard";
+import Loader from "../Loader";
 
 const FeaturedArtwork = () => {
   const [featuredArts, setFeaturedArt] = useState([]);
   const axios = useAxios();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios("/artworks/featured").then((data) => {
-      setFeaturedArt(data.data);
-    });
+    setLoading(true);
+    axios("/artworks/featured")
+      .then((data) => {
+        setFeaturedArt(data.data);
+      })
+      .finally(() => setLoading(false));
   }, [axios]);
 
   return (
@@ -19,11 +24,17 @@ const FeaturedArtwork = () => {
         Join us for an exhilarating live auction experience where art meets
         excitement.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {featuredArts.map((data) => (
-          <ArtCard key={data._id} data={data} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center pb-80 pt-40">
+          <Loader />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredArts.map((data) => (
+            <ArtCard key={data._id} data={data} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

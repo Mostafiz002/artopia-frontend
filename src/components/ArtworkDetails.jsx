@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
 import { IoHeartOutline } from "react-icons/io5";
+import Loader from "./Loader";
+import toast from "react-hot-toast";
 
 const ArtworkDetails = () => {
   const axiosSecure = useAxiosSecure();
@@ -15,16 +17,18 @@ const ArtworkDetails = () => {
   const [like, setLike] = useState(0);
   const [liked, setLiked] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // get single artwork
   useEffect(() => {
+    setLoading(true)
     axiosSecure(`/artworks/${id}`).then((data) => {
       setArtwork(data.data);
       setLike(data.data.likes);
       if (data.data.likedBy?.includes(user?.email)) {
         setLiked(true);
       }
-    });
+    }).finally(()=>setLoading(false))
   }, [axiosSecure, id, user?.email]);
 
   //  get all artwork for email
@@ -68,6 +72,7 @@ const ArtworkDetails = () => {
       .then((data) => {
         if (data.data.insertedId) {
           setFavorite(true);
+          toast.success('Added to favorites')
         }
       })
       .catch((err) => {
@@ -77,7 +82,10 @@ const ArtworkDetails = () => {
 
   return (
     <section className="py-24 bg-base-100 text-base-content transition-all duration-300">
-      <div className="max-w-[1432px] mx-auto px-4">
+      
+      {loading?  <div className="flex items-center justify-center h-[65vh]">
+          <Loader />
+        </div>:<div className="max-w-[1432px] mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Artwork Image */}
           <div className="flex-1">
@@ -187,7 +195,7 @@ const ArtworkDetails = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </section>
   );
 };

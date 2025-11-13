@@ -4,11 +4,13 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
 import UpdateModal from "../components/UpdateModal";
 import Swal from "sweetalert2";
+import Loader from "../components/Loader";
+import { Link } from "react-router";
 
 const MyGallery = () => {
   const axiosSecure = useAxiosSecure();
-  const { user,artworks,setArtworks } = useAuth();
-  
+  const { user, artworks, setArtworks } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [selectedArtId, setSelectedArtId] = useState(null);
 
   const openUpdateModal = (id) => {
@@ -17,10 +19,13 @@ const MyGallery = () => {
   };
 
   useEffect(() => {
-    axiosSecure(`/artworks?email=${user?.email}`).then((data) => {
-      setArtworks(data.data);
-    });
-  }, [axiosSecure, user?.email,setArtworks]);
+    setLoading(true);
+    axiosSecure(`/artworks?email=${user?.email}`)
+      .then((data) => {
+        setArtworks(data.data);
+      })
+      .finally(() => setLoading(false));
+  }, [axiosSecure, user?.email, setArtworks]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -31,23 +36,28 @@ const MyGallery = () => {
       confirmButtonColor: "#333333",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/artworks/${id}`).then((data) => {
-          console.log(data.data);
-          if (data.data.deletedCount == 1) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your Artwork has been deleted.",
-              icon: "success",
-            });
-            setArtworks((prev) => prev.filter((art) => art._id !== id));
-          }
-        });
-      }
-    });
+    })
+      .then((result) => {
+        setLoading(true);
+        if (result.isConfirmed) {
+          axiosSecure
+            .delete(`/artworks/${id}`)
+            .then((data) => {
+              console.log(data.data);
+              if (data.data.deletedCount == 1) {
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your Artwork has been deleted.",
+                  icon: "success",
+                });
+                setArtworks((prev) => prev.filter((art) => art._id !== id));
+              }
+            })
+            .finally(() => setLoading(false));
+        }
+      })
+      .finally(() => setLoading(false));
   };
-
 
   return (
     <section className="py-24 bg-base-100 text-base-content transition-all duration-300">
@@ -76,34 +86,115 @@ const MyGallery = () => {
               </tr>
             </thead>
             <tbody>
-              {artworks.map((art) => (
-                <tr
+              {loading ? (
+                <tr>
+                  <td colSpan={5}>
+                    <div className="flex items-center justify-center py-30">
+                      <Loader />
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                artworks.map((art) => (
+                  <tr
+                    key={art._id}
+                    className="text-center hover:bg-base-200 transition duration-300 border-b border-base-300"
+                  >
+                    <td className="border border-base-300">
+                      <Link
+                        onClick={() => {
+                          window.scrollTo(0, 0);
+                        }}
+                        to={`/artwork-details/${art._id}`}
+                        className="flex justify-center items-center"
+                      >
+                        <img
+                          src={art.image}
+                          alt={art.title}
+                          className="w-20 h-20 object-cover rounded-md border border-base-300 shadow-sm"
+                        />
+                      </Link>
+                    </td>
+                    <td className="border border-base-300 font-semibold text-primary">
+                      {art.title}
+                    </td>
+                    <td className="border border-base-300 text-accent">
+                      <div className="flex justify-center items-center gap-1">
+                        <AiFillLike className="text-accent text-lg" />{" "}
+                        {art.likes}
+                      </div>
+                    </td>
+                    <td className="border border-base-300 font-medium text-info">
+                      ${art.price}
+                    </td>
+                    <td className="border border-base-300">
+                      {/*--------- buttons ----------*/}
+                      <div className="flex justify-center items-center gap-2">
+                        <button
+                          onClick={() => openUpdateModal(art._id)}
+                          className="btn-primary-one"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleDelete(art._id);
+                          }}
+                          className="btn-primary-one  text-[#f1f1f1]!  bg-red-600! hover:bg-red-700! transition"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+
+          <div className="">
+            {" "}
+            <UpdateModal selectedArtId={selectedArtId} />
+          </div>
+          {/* view for mobile */}
+          <div className="md:hidden p-4 space-y-6">
+            {loading ? (
+              <div className="flex items-center justify-center py-30">
+                <Loader />
+              </div>
+            ) : (
+              artworks.map((art) => (
+                <div
                   key={art._id}
-                  className="text-center hover:bg-base-200 transition duration-300 border-b border-base-300"
+                  className="border border-base-300 rounded-2xl p-4 bg-base-100 shadow-sm"
                 >
-                  <td className="border border-base-300">
-                    <div className="flex justify-center items-center">
+                  <div
+                    
+                    className="flex flex-col items-center text-center"
+                  >
+                    <Link onClick={() => {
+                      window.scrollTo(0, 0);
+                    }}
+                    to={`/artwork-details/${art._id}`} className="w-full">
                       <img
                         src={art.image}
                         alt={art.title}
-                        className="w-20 h-20 object-cover rounded-md border border-base-300 shadow-sm"
+                        className="w-full h-48 object-cover rounded-xl border border-base-300 shadow"
                       />
+                    </Link>
+
+                    <h3 className="text-lg font-semibold text-primary mt-3">
+                      {art.title}
+                    </h3>
+                    <div className="flex gap-4 mt-2 items-center justify-center">
+                      <div className="flex items-center gap-1 text-accent">
+                        <AiFillLike className="text-lg" /> {art.likes}
+                      </div>
+                      <p className="text-info font-medium">${art.price}</p>
                     </div>
-                  </td>
-                  <td className="border border-base-300 font-semibold text-primary">
-                    {art.title}
-                  </td>
-                  <td className="border border-base-300 text-accent">
-                    <div className="flex justify-center items-center gap-1">
-                      <AiFillLike className="text-accent text-lg" /> {art.likes}
-                    </div>
-                  </td>
-                  <td className="border border-base-300 font-medium text-info">
-                    ${art.price}
-                  </td>
-                  <td className="border border-base-300">
-                    {/*--------- buttons ----------*/}
-                    <div className="flex justify-center items-center gap-2">
+
+                    {/* buttons */}
+                    <div className="flex gap-4 mt-4">
                       <button
                         onClick={() => openUpdateModal(art._id)}
                         className="btn-primary-one"
@@ -114,71 +205,31 @@ const MyGallery = () => {
                         onClick={() => {
                           handleDelete(art._id);
                         }}
-                        className="btn-primary-one  text-[#f1f1f1]!  bg-red-600! hover:bg-red-700! transition"
+                        className="btn-primary-one btn-primary-one  text-info!  bg-red-600! hover:bg-red-700! transition"
                       >
                         Delete
                       </button>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-         
-<div className=""> <UpdateModal selectedArtId={selectedArtId} /></div>
-          {/* view for mobile */}
-          <div className="md:hidden p-4 space-y-6">
-            {artworks.map((art) => (
-              <div
-                key={art._id}
-                className="border border-base-300 rounded-2xl p-4 bg-base-100 shadow-sm"
-              >
-                <div className="flex flex-col items-center text-center">
-                  <img
-                    src={art.image}
-                    alt={art.title}
-                    className="w-full h-48 object-cover rounded-xl border border-base-300 shadow"
-                  />
-                  <h3 className="text-lg font-semibold text-primary mt-3">
-                    {art.title}
-                  </h3>
-                  <div className="flex gap-4 mt-2 items-center justify-center">
-                    <div className="flex items-center gap-1 text-accent">
-                      <AiFillLike className="text-lg" /> {art.likes}
-                    </div>
-                    <p className="text-info font-medium">${art.price}</p>
-                  </div>
-
-                  {/* buttons */}
-                  <div className="flex gap-4 mt-4">
-                   <button
-                        onClick={() => openUpdateModal(art._id)}
-                        className="btn-primary-one"
-                      >
-                        Update
-                      </button>
-                    <button
-                      onClick={() => {
-                        handleDelete(art._id);
-                      }}
-                      className="btn-primary-one btn-primary-one  text-info!  bg-red-600! hover:bg-red-700! transition"
-                    >
-                      Delete
-                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
           {/* Empty State */}
-          {artworks.length === 0 && (
-            <div className="text-center py-10 text-info">
-              You haven't uploaded any artworks yet.
-            </div>
-          )}
+          {artworks.length === 0 &&
+            (loading ? (
+              ""
+            ) : (
+              <div className="text-center py-10 text-info">
+                You haven't uploaded any artworks yet.
+              </div>
+            ))}
         </div>
       </div>
-      <div className=""> <UpdateModal selectedArtId={selectedArtId} /></div>
+      <div className="">
+        {" "}
+        <UpdateModal selectedArtId={selectedArtId} />
+      </div>
     </section>
   );
 };

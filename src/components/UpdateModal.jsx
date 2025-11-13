@@ -48,7 +48,7 @@ const UpdateModal = ({ selectedArtId }) => {
       <dialog id="my_modal_2" className="modal">
         <form
           onSubmit={handleUpdate}
-          className="modal-box bg-base-100 text-base-content border border-info/20 rounded-2xl p-8 shadow-xl w-[90%] max-w-[700px] transition-all duration-300 text-left space-y-2"
+          className="modal-box bg-base-100 text-base-content border border-info/20 rounded-2xl p-8 shadow-xl w-[90%] max-w-[700px] transition-all duration-300 text-left space-y-2 max-h-[90%]"
         >
           <h3 className="text-3xl font-semibold text-center mb-6 text-primary">
             Update Artwork
