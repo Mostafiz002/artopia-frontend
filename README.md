@@ -69,4 +69,76 @@ The project focuses on **clean design**, **smooth animation**, and a **user-frie
 - 🌐 **Frontend:** [Netlify](https://www.netlify.com/)  
 - 🖥️ **Backend:** [Vercel](https://vercel.com/)  
 
-##
+---
+
+## ⚙️ Installation 
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/Mostafiz002/artopia-frontend.git
+cd artopia-frontend
+npm install
+```
+
+
+Configure environment variables
+   Create a .env file in the project root and configure any necessary environment variables. For example:
+
+```
+VITE_apiKey= //here
+VITE_authDomain= //here
+VITE_projectId= //here
+VITE_storageBucket= //here
+VITE_messagingSenderId= //here
+VITE_appId= //here
+
+```
+
+Run the application:
+
+```bash
+npm run dev
+
+```
+
+#### Dependencies List
+
+```
+   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@tailwindcss/vite": "^4.1.17",
+    "axios": "^1.13.2",
+    "daisyui": "^5.4.7",
+    "firebase": "^12.5.0",
+    "lenis": "^1.3.15",
+    "motion": "^12.23.24",
+    "react": "^19.1.1",
+    "react-awesome-reveal": "^4.3.1",
+    "react-dom": "^19.1.1",
+    "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.5.0",
+    "react-router": "^7.9.5",
+    "react-simple-typewriter": "^5.0.1",
+    "styled-components": "^6.1.19",
+    "sweetalert2": "^11.26.3",
+    "tailwindcss": "^4.1.17"
+  },
+```
+
+#### Dev Dependencies List
+
+```
+"devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "vite": "^7.1.7"
+  }
+```
+
