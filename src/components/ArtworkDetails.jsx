@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 import { IoHeartOutline } from "react-icons/io5";
 import Loader from "./Loader";
 import toast from "react-hot-toast";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 const ArtworkDetails = () => {

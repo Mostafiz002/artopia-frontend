@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import { AiFillLike } from "react-icons/ai";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 const ArtCardLarge = ({ data }) => {
@@ -13,7 +14,7 @@ const ArtCardLarge = ({ data }) => {
       className="relative border border-accent/20 bg-base-100 shadow-md hover:shadow-xl hover:border-accent/40 duration-500 rounded-2xl overflow-hidden group transition-transform hover:-translate-y-2"
     >
       {/* Image Section */}
-      <div className="relative h-80 w-full overflow-hidden">
+      <div className="relative h-50 w-full overflow-hidden">
         <img
           src={data.image}
           alt={data.title}
@@ -33,12 +34,8 @@ const ArtCardLarge = ({ data }) => {
           <h2 className="text-primary font-semibold text-2xl mb-2 truncate">
             {data.title}
           </h2>
-          <p className="text-info text-base mb-1 truncate">
-            {data.category} — {data.medium}
-          </p>
-          <p className="text-accent text-base mb-3 truncate">
-            By {data.artistName}
-          </p>
+          
+         
           <p className="text-sm text-base-content/70 mb-3 line-clamp-2">
             {data.description}
           </p>

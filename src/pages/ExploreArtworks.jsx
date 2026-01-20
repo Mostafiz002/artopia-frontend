@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import ArtCardLarge from "../components/ArtCardLarge";
 import Loader from "../components/Loader";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 const ExploreArtworks = () => {
@@ -124,7 +125,7 @@ const ExploreArtworks = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.4 }}
-          className="mb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="mb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {filteredArtworks.map((data) => (
             <ArtCardLarge key={data._id} data={data} />
